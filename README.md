@@ -5,3 +5,4 @@
 - [ ] Select font for chapters
 - [ ] Select font for body text
 - [ ] Draw illustrations for the story
+- [ ] Adjust mobile website view
