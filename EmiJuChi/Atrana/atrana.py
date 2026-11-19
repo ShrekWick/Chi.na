@@ -31,14 +31,14 @@ while running:
             running = False
         if event.type == pygame.KEYUP:
             block = False
-        if not block and event.type == pygame.KEYDOWN and event.key != next_key :
+        if not block and event.type == pygame.KEYDOWN and event.key != next_key:
             konami = 0
 
-# endregion do not remove
+    # endregion do not remove
 
-# region sharvnutrikotorogobilkvadratskajdoystoronikotorogolejalkonus
+    # region sharvnutrikotorogobilkvadratskajdoystoronikotorogolejalkonus
 
-    screen.fill((69,69,69))
+    screen.fill((69, 69, 69))
 
     pygame.draw.circle(screen, "gold", pos, 40)
     pygame.draw.polygon(
@@ -62,18 +62,16 @@ while running:
         [(pos.x - 40, pos.y + 40), (pos.x, pos.y + 80), (pos.x + 40, pos.y + 40)],
     )
 
-# endregion sharvnutrikotorogobilkvadratskajdoystoronikotorogolejalkonus
+    # endregion sharvnutrikotorogobilkvadratskajdoystoronikotorogolejalkonus
 
-#region iliketomoveitmoveit
+    # region iliketomoveitmoveit
 
     keys = pygame.key.get_pressed()
 
     if cheat:
-         speed = 2000
+        speed = 2000
     else:
-         speed = 300
-
-
+        speed = 300
 
     if keys[pygame.K_UP]:
         pos.y -= speed * dt
@@ -84,72 +82,70 @@ while running:
     if keys[pygame.K_RIGHT]:
         pos.x += speed * dt
 
-
     if keys[pygame.K_x]:
-            cheat = False
-            konami = 0
+        cheat = False
+        konami = 0
     pygame.display.flip()
 
     dt = clock.tick(60) / 1000
 
-#endregion iliketomoveitmoveit
+    # endregion iliketomoveitmoveit
 
-# region pussycat
+    # region pussycat
 
     konami_keys = pygame.key.get_pressed()
 
     if konami == 0:
-         next_key = pygame.K_UP
+        next_key = pygame.K_UP
 
-    if konami_keys[pygame.K_UP] and konami == 0 and not block :
+    if konami_keys[pygame.K_UP] and konami == 0 and not block:
         block = True
         konami += 1
         next_key = pygame.K_UP
 
-
-    if konami_keys[pygame.K_UP] and konami == 1 and not block :
+    if konami_keys[pygame.K_UP] and konami == 1 and not block:
         block = True
         konami += 1
         next_key = pygame.K_DOWN
 
-    if konami_keys[pygame.K_DOWN] and konami == 2 and not block :
+    if konami_keys[pygame.K_DOWN] and konami == 2 and not block:
         block = True
         konami += 1
         next_key = pygame.K_DOWN
 
-    if konami_keys[pygame.K_DOWN] and konami == 3 and not block :
-            block = True
-            konami += 1
-            next_key = pygame.K_LEFT
+    if konami_keys[pygame.K_DOWN] and konami == 3 and not block:
+        block = True
+        konami += 1
+        next_key = pygame.K_LEFT
 
-    if konami_keys[pygame.K_LEFT] and konami == 4 and not block :
-            block = True
-            konami += 1
-            next_key = pygame.K_RIGHT
+    if konami_keys[pygame.K_LEFT] and konami == 4 and not block:
+        block = True
+        konami += 1
+        next_key = pygame.K_RIGHT
 
-    if konami_keys[pygame.K_RIGHT] and konami == 5 and not block :
-            block = True
-            konami += 1
-            next_key = pygame.K_LEFT
+    if konami_keys[pygame.K_RIGHT] and konami == 5 and not block:
+        block = True
+        konami += 1
+        next_key = pygame.K_LEFT
 
-    if konami_keys[pygame.K_LEFT] and konami == 6 and not block :
-            block = True
-            konami += 1
-            next_key = pygame.K_RIGHT
+    if konami_keys[pygame.K_LEFT] and konami == 6 and not block:
+        block = True
+        konami += 1
+        next_key = pygame.K_RIGHT
 
-    if konami_keys[pygame.K_RIGHT] and konami == 7 and not block :
-            block = True
-            konami += 1
-            next_key = pygame.K_b
+    if konami_keys[pygame.K_RIGHT] and konami == 7 and not block:
+        block = True
+        konami += 1
+        next_key = pygame.K_b
 
-    if konami_keys[pygame.K_b] and konami == 8 and not block :
-            block = True
-            konami += 1
-            next_key = pygame.K_a
+    if konami_keys[pygame.K_b] and konami == 8 and not block:
+        block = True
+        konami += 1
+        next_key = pygame.K_a
 
-    if konami_keys[pygame.K_a] and konami == 9 and not block :
-            block = True
-            konami += 1
+    if konami_keys[pygame.K_a] and konami == 9 and not block:
+        block = True
+        konami += 1
 
     if konami == 10:
         cheat = True
