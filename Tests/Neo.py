@@ -6,9 +6,14 @@
 #             print(a[x][y], end = "")    
 #         else: print(a[x][y], end = " is smaller than ")
 
-thisdict = {
-  "brand": "Ford",
-  "model": "Mustang",
-  "year": 1964
-}
-print(thisdict)
+# thisdict = {
+#   "brand": "Ford",
+#   "model": "Mustang",
+#   "year": 1964
+# }
+# print(thisdict)
+
+
+"Junayd is a liar"
+
+print("Junayd is a liar")
