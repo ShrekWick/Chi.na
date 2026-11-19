@@ -10,6 +10,7 @@ pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
 BIG_SPEED = 3000
 DEF_SPEED = 300
+speed = DEF_SPEED
 konami = [
     pygame.K_UP,
     pygame.K_UP,
@@ -22,9 +23,14 @@ konami = [
     pygame.K_b,
     pygame.K_a,
 ]
-speed = DEF_SPEED
 cur_konami = []
 block = False
+
+
+def handle_key(key):
+    if cur_konami == konami[: len(cur_konami)] and konami[len(cur_konami)] == key:
+        cur_konami.append(key)
+
 
 while running:
     for event in pygame.event.get():
@@ -75,12 +81,12 @@ while running:
     if keys[pygame.K_RIGHT]:
         pos.x += speed * dt
 
-    for key in list(set(konami)):
-        if not block and (
-            cur_konami == konami[: len(cur_konami)] and konami[len(cur_konami)] == key
-        ):
-            cur_konami.append(key)
-        block = True
+    for key in konami:
+        if keys[key]:
+            if not block:
+                handle_key(key)
+            block = True
+
     if keys[pygame.K_x]:
         cur_konami = []
 
