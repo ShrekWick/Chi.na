@@ -1,5 +1,11 @@
+# region extensions
+
 import pygame
 from pygame.typing import SequenceLike
+
+# endregion extensions
+
+# region grundlagen
 
 #! Author = "Emil Maharramov"
 
@@ -15,8 +21,10 @@ konami = 0
 cheat = False
 block = False
 
+# endregion grundlagen
 
 # region do not remove
+
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -25,8 +33,10 @@ while running:
             block = False
         if not block and event.type == pygame.KEYDOWN and event.key != next_key :
             konami = 0
+
 # endregion do not remove
 
+# region sharvnutrikotorogobilkvadratskajdoystoronikotorogolejalkonus
 
     screen.fill((69,69,69))
 
@@ -51,6 +61,10 @@ while running:
         "light blue",
         [(pos.x - 40, pos.y + 40), (pos.x, pos.y + 80), (pos.x + 40, pos.y + 40)],
     )
+
+# endregion sharvnutrikotorogobilkvadratskajdoystoronikotorogolejalkonus
+
+#region iliketomoveitmoveit
 
     keys = pygame.key.get_pressed()
 
@@ -78,8 +92,7 @@ while running:
 
     dt = clock.tick(60) / 1000
 
-
-
+#endregion iliketomoveitmoveit
 
 # region pussycat
 
@@ -141,7 +154,10 @@ while running:
     if konami == 10:
         cheat = True
 
-
 # endregion pussycat
 
+# region end
+
 pygame.quit()
+
+# endregion end
