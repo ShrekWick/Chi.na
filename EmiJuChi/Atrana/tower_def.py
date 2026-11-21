@@ -30,6 +30,12 @@ while is_running:
                     screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED)
 
     screen.fill(BG_COLOR)
+    pygame.draw.line(
+        screen,
+        "red",
+        (0, screen.height / 2),
+        (screen.width, screen.height / 2),
+    )
     pygame.display.flip()
     dt = clock.tick(60) / 1000
 
