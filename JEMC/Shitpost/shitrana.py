@@ -14,6 +14,11 @@ from pygame.typing import SequenceLike
 
 pygame.init()
 
+pygame.mixer.init()
+pygame.mixer.music.load(os.path.join("media", "star-theme.mp3"))
+pygame.mixer.music.set_volume(1)
+pygame.mixer.music.play(-1)
+
 resolution_x = 1280
 resolution_y = 720
 screen = pygame.display.set_mode((resolution_x, resolution_y))
@@ -136,8 +141,10 @@ while running:
     mann_orig = pygame.image.load(os.path.join("media", "mann-orig.png"))
 
     if cheat_konami:
+        pygame.mixer.music.unpause()
         skin = mann_secret
     else:
+        pygame.mixer.music.pause()
         skin = mann_orig
 
     skin = pygame.transform.scale(skin, (160, 160))
