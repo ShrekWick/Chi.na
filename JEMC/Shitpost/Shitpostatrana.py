@@ -52,7 +52,7 @@ while running:
             print(konami)
             print(pygame.key.name(next_key))
             block = False
-        if event.type == pygame.KEYDOWN and event.key != next_key and event.key == pygame.K_UP and konami == other_konami:
+        if event.type == pygame.KEYDOWN and event.key != next_key and event.key == konami_sequence[0] and konami == other_konami:
             konami = other_konami
         elif event.type == pygame.KEYDOWN and event.key != next_key:
                     konami = 0

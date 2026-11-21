@@ -66,23 +66,23 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN and event.key == next_key:
+        if event.type == pygame.KEYDOWN and event.key == next_key_konami:
             block_konami = False
-        if event.type == pygame.KEYDOWN and event.key != next_key and event.key == pygame.K_UP and konami == other_konami:
+        if event.type == pygame.KEYDOWN and event.key != next_key_konami and event.key == konami_sequence[0] and konami == other_konami:
             konami = other_konami
-        elif event.type == pygame.KEYDOWN and event.key != next_key:
+        elif event.type == pygame.KEYDOWN and event.key != next_key_konami:
                     konami = 0
-        elif not block_konami and event.type == pygame.KEYDOWN and event.key != next_key:
+        elif not block_konami and event.type == pygame.KEYDOWN and event.key != next_key_konami:
             konami = 0
 
-        if event.type == pygame.KEYDOWN and event.key == next_key:
+        if event.type == pygame.KEYDOWN and event.key == next_key_returnal:
             block_returnal = False
-        if event.type == pygame.KEYDOWN and event.key != next_key and event.key == pygame.K_UP and returnal == other_returnal:
-            konami = other_konami
-        elif event.type == pygame.KEYDOWN and event.key != next_key:
-            konami = 0
-        elif not block_konami and event.type == pygame.KEYDOWN and event.key != next_key:
-            konami = 0
+        if event.type == pygame.KEYDOWN and event.key != next_key_returnal and event.key == returnal_sequence[0] and returnal == other_returnal:
+            returnal = other_returnal
+        elif event.type == pygame.KEYDOWN and event.key != next_key_returnal:
+            returnal = 0
+        elif not block_returnal and event.type == pygame.KEYDOWN and event.key != next_key_returnal:
+            returnal = 0
 
     # endregion do not remove
 
@@ -206,6 +206,10 @@ while running:
         konami = 0
 
 
+    if cheat_returnal:
+        pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
+        cheat_returnal = False
+
     # endregion iliketomoveitmoveit
 
     # region pussycat
@@ -225,106 +229,40 @@ while running:
     if konami >= len(konami_sequence):
         continue
     else:
-        next_key = konami_sequence[konami]
+        next_key_konami = konami_sequence[konami]
 
-    if konami_keys[next_key] and not block_konami:
+    if konami_keys[next_key_konami] and not block_konami:
         block_konami = True
         konami += 1
 
     if konami == len(konami_sequence):
                 cheat_konami = True
 
-
-    # if konami == 0:
-    #     next_key = pygame.K_UP
-
-    # if konami_keys[pygame.K_UP] and konami == 0 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_UP
-
-    # if konami_keys[pygame.K_UP] and konami == 1 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_DOWN
-
-    # if konami_keys[pygame.K_DOWN] and konami == 2 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_DOWN
-
-    # if konami_keys[pygame.K_DOWN] and konami == 3 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_LEFT
-
-    # if konami_keys[pygame.K_LEFT] and konami == 4 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_RIGHT
-
-    # if konami_keys[pygame.K_RIGHT] and konami == 5 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_LEFT
-
-    # if konami_keys[pygame.K_LEFT] and konami == 6 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_RIGHT
-
-    # if konami_keys[pygame.K_RIGHT] and konami == 7 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_b
-
-    # if konami_keys[pygame.K_b] and konami == 8 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-    #     current_key = next_key
-    #     next_key = pygame.K_a
-
-    # if konami_keys[pygame.K_a] and konami == 9 and not block_konami:
-    #     block_konami = True
-    #     konami += 1
-
-    # if konami == 10:
-    #     cheat_konami = True
-
-
 # endregion pussycat
 
     # region retrieve
 
-    konami_keys = pygame.key.get_pressed()
-    konami_sequence = [pygame.K_r,pygame.K_e,pygame.K_t,pygame.K_u,pygame.K_r,pygame.K_n]
+    returnal_keys = pygame.key.get_pressed()
+    returnal_sequence = [pygame.K_r,pygame.K_e,pygame.K_t,pygame.K_u,pygame.K_r,pygame.K_n]
     
-    first_konami = konami_sequence[0]
-    for x in konami_sequence:
-        if x != first_konami:
-            other_konami = konami_sequence.index(x)
+    first_returnal = returnal_sequence[0]
+    for x in returnal_sequence:
+        if x != first_returnal:
+            other_returnal = returnal_sequence.index(x)
             break
              
         
     
-    if konami >= len(konami_sequence):
+    if returnal >= len(returnal_sequence):
         continue
     else:
-        next_key = konami_sequence[konami]
+        next_key_returnal = returnal_sequence[returnal]
     
-    if konami_keys[next_key] and not block_konami:
-        block_konami = True
-        konami += 1
+    if returnal_keys[next_key_returnal] and not block_returnal:
+        block_returnal = True
+        returnal += 1
     
-    if konami == len(konami_sequence):
+    if returnal == len(returnal_sequence):
         cheat_returnal = True
 
     # endregion retrieve
