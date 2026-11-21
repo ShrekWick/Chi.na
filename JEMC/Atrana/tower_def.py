@@ -14,6 +14,8 @@ is_running = True
 is_fullscreen = True
 dt = 0
 
+
+
 while is_running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -30,13 +32,10 @@ while is_running:
                     screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED)
 
     screen.fill(BG_COLOR)
-    pygame.draw.line(
-        screen,
-        "red",
-        (0, screen.height / 2),
-        (screen.width, screen.height / 2),
-    )
+    pygame.draw.line(screen,"red",(0,350),(1000,920),5)
     pygame.display.flip()
     dt = clock.tick(60) / 1000
+
+    
 
 pygame.quit()
