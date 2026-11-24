@@ -1,4 +1,5 @@
 import math
+from datetime import datetime, timedelta
 
 import pygame
 
@@ -17,7 +18,7 @@ is_fullscreen = True
 dt = 0
 
 font = pygame.font.Font(None, 36)
-currency = 0
+currency = 5
 currency_display = font.render(f"You have {currency} AZN", True, "white")
 currency_display_rect = currency_display.get_rect()
 currency_display_rect.center = (screen.width / 2, screen.height / 2)
@@ -26,22 +27,28 @@ POLUCHKA_INTERVAL = 500
 pygame.time.set_timer(POLUCHKA, POLUCHKA_INTERVAL)
 sentries = []
 shoot = False
-bullets = []
+
+FIRE_SPEED = 2000
+BULLET_SPEED = 300
 
 
 class Sentry:
-    def __init__(self, pos):
+    def __init__(self, pos, bullets, last_shoot_time):
         self.pos = pos
+        self.bullets = bullets
+        self.last_shoot_time = last_shoot_time
 
 
 class Bullet:
-    def __init__(self, pos, target):
+    def __init__(self, pos, target, birth_time, mother):
         self.pos = pos
         self.target = target
+        self.birth_time = birth_time
+        self.mother = mother
 
 
 def put_a_sentry_here(pos):
-    sentry = Sentry(pos)
+    sentry = Sentry(pos, [], datetime.now() - timedelta(milliseconds=FIRE_SPEED))
     sentries.append(sentry)
 
 
@@ -56,6 +63,12 @@ class Mann:
         self.pos = pos
         self.speed = speed
         self.health = health
+
+
+def distance(sentry, mann):
+    return math.sqrt(
+        (sentry.pos[0] - mann.pos[0]) ** 2 + (sentry.pos[1] - mann.pos[1]) ** 2
+    )
 
 
 while is_running:
@@ -91,29 +104,35 @@ while is_running:
     for s in sentries:
         pygame.draw.circle(screen, "chartreuse4", s.pos, 50)
         target = None
-        for m in manns:
-            if math.sqrt((s.pos[0] - m.pos[0]) ** 2 + (s.pos[1] - m.pos[1]) ** 2) < 500:
-                shoot = True
-                target = m
-                break
+        if len(manns) > 0:
+            min_mann = manns[0]
+            for m in manns:
+                if distance(s, m) < distance(s, min_mann):
+                    min_mann = m
+            shoot = True
+            target = min_mann
+
         if shoot and target:
-            bullets.append(Bullet(s.pos, target))
+            now = datetime.now()
+            if (now - s.last_shoot_time).total_seconds() > FIRE_SPEED / 1000:
+                s.bullets.append(Bullet(s.pos, target, now, s))
+                s.last_shoot_time = now
             shoot = False
+        for b in s.bullets:
+            pygame.draw.circle(screen, "chartreuse4", b.pos, 5)
+            uxStep = BULLET_SPEED
+            xStep = uxStep if b.target.pos[0] > s.pos[0] else -uxStep
+            yStep = (b.target.pos[1] - s.pos[1]) / (b.target.pos[0] - s.pos[0]) * xStep
+            b.pos = (
+                b.pos[0] + dt * xStep,
+                b.pos[1] + dt * yStep,
+            )
+
     for m in manns:
         pygame.draw.circle(screen, "brown4", m.pos, 15)
         m.pos = (m.pos[0] + m.speed * dt, m.pos[1])
         if m.pos[0] > screen.width + 50:
             manns.remove(m)
-    for b in bullets:
-        pygame.draw.circle(screen, "chartreuse4", b.pos, 5)
-        cos = (b.target.pos[0] ** 2 - b.pos[0]) ** 2 / (
-            b.target.pos[1] ** 2 - b.pos[1]
-        ) ** 2
-
-        b.pos = (
-            b.pos[0] + dt * 30 * cos,
-            b.pos[1] + dt * 30 * 1 / cos,
-        )
 
     screen.blit(currency_display, currency_display_rect)
     pygame.display.flip()
